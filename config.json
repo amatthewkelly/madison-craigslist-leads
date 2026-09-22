@@ -1,0 +1,338 @@
+{
+  "_comment": "Tunables for cljobs.py. Edit freely; the script re-reads this every run.",
+  "area_id": 165,
+  "area_host": "madison",
+  "categories": [
+    "jjj",
+    "ggg"
+  ],
+  "profile": "balanced",
+  "profiles": {
+    "strict": {
+      "min_score": 6,
+      "max_results": 12
+    },
+    "balanced": {
+      "min_score": 2,
+      "max_results": 25
+    },
+    "loose": {
+      "min_score": -999,
+      "max_results": 60
+    }
+  },
+  "output_file": "~/Desktop/craigslist-leads.txt",
+  "state_file": "~/.craigslistcash/state.json",
+  "keep_days": 4,
+  "seen_retention_days": 21,
+  "notify": true,
+  "summarize": true,
+  "claude_bin": "claude",
+  "claude_model": "claude-opus-5",
+  "claude_timeout_sec": 240,
+  "summarize_batch_size": 20,
+  "max_body_fetches": 200,
+  "request_delay_sec": 0.5,
+  "max_age_days": 10,
+  "_scoring_comment": "Each regex that matches adds its weight once. Hard blocks reject outright regardless of score.",
+  "hard_block": {
+    "cdl": [
+      "\\bcdl\\b",
+      "\\bclass\\s*[ab]\\s*(license|cdl|driver)",
+      "commercial driver'?s? licen",
+      "\\botr\\b",
+      "over[- ]the[- ]road",
+      "tanker endorsement",
+      "hazmat endorsement",
+      "doubles/triples",
+      "\\b(semi|tractor)[- ]trailer\\b",
+      "box truck driver",
+      "\\bdot physical\\b"
+    ],
+    "scam": [
+      "western union",
+      "money ?gram",
+      "wire transfer",
+      "cashier'?s check",
+      "money order",
+      "\\bzelle\\b",
+      "cash ?app",
+      "\\bvenmo\\b.{0,30}(deposit|upfront|first)",
+      "\\bbitcoin\\b",
+      "\\bcrypto",
+      "\\busdt\\b",
+      "\\bnft\\b",
+      "reship",
+      "package (forward|handl)",
+      "parcel (mule|processor)",
+      "mystery shopper",
+      "secret shopper",
+      "\\bevaluator\\b.{0,20}\\bstore\\b",
+      "whats ?app",
+      "\\btelegram\\b",
+      "\\bsignal app\\b",
+      "processing (payments|checks) from home",
+      "receive and forward",
+      "no experience (needed|necessary|required).{0,40}\\$\\s*\\d{3,}",
+      "\\$\\d{3,}\\s*(/|per )?\\s*day.{0,30}(from home|no experience)",
+      "unlimited (earning|income) potential",
+      "financial freedom",
+      "be your own boss",
+      "passive income",
+      "\\beasy money\\b",
+      "\\bget paid to post\\b",
+      "ad poster",
+      "personal assistant.{0,60}\\$\\s*[5-9]\\d{2,}",
+      "\\bpay ?pal\\b.{0,25}(first|upfront|deposit)",
+      "\\bsweepstakes\\b",
+      "mail (them|the|these|entries|packages?) (back )?to",
+      "\\bforward(ing)? (mail|packages?|parcels?)\\b",
+      "after (successful )?verification"
+    ],
+    "mlm": [
+      "\\bmlm\\b",
+      "network marketing",
+      "multi[- ]level",
+      "downline",
+      "\\bupline\\b",
+      "primerica",
+      "vector marketing",
+      "\\bcutco\\b",
+      "\\bamway\\b",
+      "herbalife",
+      "world financial group",
+      "\\bwfg\\b",
+      "arbonne",
+      "beachbody",
+      "younique",
+      "\\bit works\\b",
+      "build your own team.{0,30}(income|commission)",
+      "investment (required|of \\$)",
+      "startup (fee|cost) of"
+    ],
+    "survey_research": [
+      "\\bsurvey\\b",
+      "research (study|opportunity|participant|volunteer)",
+      "\\bclinical (trial|study|research)\\b",
+      "focus group",
+      "paid (study|research|participant)",
+      "study participant",
+      "participants? (needed|wanted)",
+      "\\buw[- ]madison study\\b",
+      "\\birb\\b",
+      "\\bplasma\\b.{0,20}donat",
+      "sperm donor",
+      "egg donor",
+      "\\bpanelist\\b",
+      "product tester",
+      "\\btaste test\\b",
+      "user (research|testing) (study|session)",
+      "research (job|gig|work|position|panel)",
+      "high[- ]paying research",
+      "\\bside hustle\\b",
+      "\\bget paid to (test|try|review|watch|listen)\\b",
+      "get paid up to \\$",
+      "\\bcompensated for your (time|participation)\\b",
+      "(dental|orthodontic|medical|clinical) (program|study|trial).{0,60}(\\$|\\bpaid\\b)",
+      "qualify for (free|paid|discounted) (treatment|dental|medical|care)"
+    ],
+    "corporate_recruiting": [
+      "staffing (agency|group|solutions|services)",
+      "talent acquisition",
+      "our client is (seeking|looking)",
+      "\\brecruiter\\b",
+      "recruiting (firm|agency)",
+      "\\bheadhunter\\b",
+      "aerotek",
+      "robert half",
+      "\\badecco\\b",
+      "manpower",
+      "kelly services",
+      "randstad",
+      "express employment",
+      "insight global",
+      "teksystems",
+      "\\bqps\\b",
+      "\\bremx\\b",
+      "\\btrc staffing\\b",
+      "\\bmau\\b",
+      "\\bcorestaff\\b",
+      "\\bpeoplready\\b",
+      "people ?ready",
+      "join our talent (network|community)",
+      "submit your resume (through|via|to our)",
+      "apply (online )?(at|through|via) (www\\.|http|our (website|portal|career))",
+      "\\bapplicant tracking\\b",
+      "\\breq(uisition)? ?id\\b",
+      "\\bjob id:? ?\\d",
+      "\\breq ?#"
+    ],
+    "misc_bad_fit": [
+      "\\badult\\b.{0,20}(entertain|film|model|work)",
+      "\\bescort\\b",
+      "\\bcam ?(girl|boy|model)\\b",
+      "\\bonlyfans\\b",
+      "sugar (baby|daddy|momma)",
+      "\\bmassage\\b.{0,20}(sensual|full body)",
+      "door to door.{0,30}(commission only)",
+      "\\b100% commission\\b",
+      "must (purchase|buy|provide).{0,25}(kit|inventory|starter)",
+      "\\bunpaid\\b",
+      "\\bvolunteer (position|opportunity|needed)\\b",
+      "for exposure",
+      "\\bmust have own (truck|trailer|skid|bobcat)\\b"
+    ],
+    "gig_platform_signup": [
+      "\\btask ?rabbit\\b",
+      "\\binstacart\\b",
+      "\\bdoor ?dash\\b",
+      "\\bgrub ?hub\\b",
+      "\\buber\\s*(eats|one|driver)?\\b",
+      "\\blyft\\b",
+      "\\bamazon flex\\b",
+      "\\bshipt\\b",
+      "\\bspark driver\\b",
+      "\\bgo ?puff\\b",
+      "\\bfavor delivery\\b",
+      "\\broadie\\b",
+      "\\brover\\.com\\b",
+      "\\bwag!?\\b",
+      "\\bveho\\b",
+      "sign up to (drive|deliver)",
+      "\\bearn on\\b",
+      "download the app and"
+    ],
+    "lead_gen_pitch": [
+      "grow your business",
+      "\\bmake up to \\$\\s*\\d",
+      "earn up to \\$\\s*\\d+\\s*(per|/|a )\\s*(week|month|year)",
+      "\\bleads? (provided|program|furnished)\\b",
+      "become an? (authorized )?(dealer|installer|partner|affiliate)",
+      "\\bfranchise (opportunity|available)\\b",
+      "\\bbusiness opportunity\\b",
+      "build (your own|a) (business|team|empire)",
+      "\\bsubcontractors? (wanted|needed).{0,40}\\bcrews?\\b"
+    ],
+    "roofing": [
+      "\\broof(s|ing|er|ers)?\\b",
+      "\\bre-?roof",
+      "\\bshingles?\\b",
+      "\\bflat roof\\b",
+      "\\btear[- ]?off\\b.{0,30}\\b(roof|shingle)",
+      "\\bepdm\\b",
+      "\\broof(ing)? (crew|laborer|helper|tech|mechanic)"
+    ]
+  },
+  "positive": [
+    {
+      "w": 4,
+      "re": "\\bpaid (in )?cash\\b|\\bcash (paid|daily|weekly|in hand|same ?day|only|job|money|tips)\\b|\\$\\s*\\d+\\s*(a day |per day |/day )?cash\\b|\\bcash at the end\\b|\\bcash upon\\b",
+      "why": "cash pay"
+    },
+    {
+      "w": 3,
+      "re": "paid (same day|daily|at the end|when (the )?(job|work) is done|upon completion|that day)",
+      "why": "paid on completion"
+    },
+    {
+      "w": 3,
+      "re": "\\b(one|1)[- ](day|time|off)\\b|\\bsingle day\\b|\\bodd jobs?\\b|\\bthis (weekend|saturday|sunday|week)\\b|\\btomorrow\\b|\\btoday\\b",
+      "why": "short term"
+    },
+    {
+      "w": 2,
+      "re": "\\bshort[- ]term\\b|\\btemporary\\b|\\bseasonal\\b|\\bas needed\\b|\\bon[- ]call\\b|\\bflexible (hours|schedule)\\b",
+      "why": "flexible/short term"
+    },
+    {
+      "w": 2,
+      "re": "\\bpart[- ]?time\\b|\\ba (few|couple) hours\\b|\\b[1-8]\\s*(-\\s*[1-9])?\\s*hours?\\b",
+      "why": "part time / few hours"
+    },
+    {
+      "w": 1,
+      "re": "\\bfull[- ]?time\\b",
+      "why": "full time"
+    },
+    {
+      "w": 3,
+      "re": "\\b(text|call) me\\b|\\btext or call\\b|\\bgive me a (call|shout)\\b|\\bshoot me a text\\b",
+      "why": "direct personal contact"
+    },
+    {
+      "w": 3,
+      "re": "\\bi (need|am looking|'m looking|have|want|run|own)\\b|\\bmy (house|yard|garage|shop|business|mom|dad|apartment|basement|truck)\\b|\\bwe'?re a (small|local|family)\\b",
+      "why": "first-person / real person"
+    },
+    {
+      "w": 2,
+      "re": "\\bfamily[- ]owned\\b|\\bsmall (business|company|crew|shop|team)\\b|\\blocally owned\\b|\\bmom and pop\\b",
+      "why": "small local outfit"
+    },
+    {
+      "w": 2,
+      "re": "\\bhelp (me|us) (move|haul|clean|load|unload|clear|dig|paint|set ?up|tear down)\\b|\\bmoving help\\b|\\bhelp moving\\b",
+      "why": "concrete manual task"
+    },
+    {
+      "w": 1,
+      "re": "\\b(madison|middleton|fitchburg|verona|sun prairie|waunakee|monona|stoughton|mcfarland|deforest|cottage grove|oregon wi|willy st|east side|west side|near west|isthmus|state st|capitol)\\b",
+      "why": "specific local place"
+    },
+    {
+      "w": 1,
+      "re": "\\bno experience (needed|necessary|required)\\b(?!.{0,40}\\$\\s*\\d{3,})",
+      "why": "entry friendly"
+    },
+    {
+      "w": 1,
+      "re": "\\bstart (today|tomorrow|asap|immediately|this week)\\b|\\basap\\b",
+      "why": "immediate start"
+    }
+  ],
+  "negative": [
+    {
+      "w": -3,
+      "re": "equal opportunity employer|\\beoe\\b|\\bada\\b compliance|affirmative action|e[- ]?verify",
+      "why": "HR boilerplate"
+    },
+    {
+      "w": -2,
+      "re": "\\b401\\s*\\(?k\\)?\\b|benefits package|pto and|paid time off|dental (and|,) vision|tuition reimbursement",
+      "why": "corporate benefits boilerplate"
+    },
+    {
+      "w": -2,
+      "re": "background (check|screen)|drug (screen|test)|\\bmvr\\b|motor vehicle record",
+      "why": "screening-heavy"
+    },
+    {
+      "w": -2,
+      "re": "\\bclick (here|the link|apply)\\b|\\bapply (now )?(online|here|via|at) (http|www)|copy and paste (this|the) link",
+      "why": "link-farm apply flow"
+    },
+    {
+      "w": -2,
+      "re": "\\bbachelor'?s degree\\b|\\bmaster'?s degree\\b|\\b\\d\\+? years of (experience|exp)\\b",
+      "why": "credential gated"
+    },
+    {
+      "w": -1,
+      "re": "\\$\\$|!!!|\\?\\?\\?|\\bhiring immediately!!",
+      "why": "hypey punctuation"
+    },
+    {
+      "w": -2,
+      "re": "\\bwork from home\\b|\\bremote\\b|\\bwfh\\b|\\btelecommute\\b",
+      "why": "remote/WFH (common scam vector)"
+    },
+    {
+      "w": -1,
+      "re": "\\bcommission[- ]only\\b|\\b1099 (only|contractor position)\\b|\\buncapped commission\\b",
+      "why": "commission only"
+    }
+  ],
+  "log_file": "~/.craigslistcash/run.log",
+  "log_max_bytes": 1048576,
+  "log_rotate_days": 7
+}

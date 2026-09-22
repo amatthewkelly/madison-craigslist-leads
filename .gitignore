@@ -1,0 +1,9 @@
+# Runtime cache - refetched automatically on first run
+.categories.json
+
+# Python
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
