@@ -2,7 +2,7 @@
 # Installs the twice-daily launchd job. Re-run any time to change the times.
 set -euo pipefail
 
-LABEL="com.aaronkelly.cljobs"
+LABEL="com.craigslistcash.jobs"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 LOGDIR="$HOME/.craigslistcash"
