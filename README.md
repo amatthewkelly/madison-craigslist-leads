@@ -231,5 +231,8 @@ nothing, safe any time.
   Craigslist is unreachable the previous file is left untouched.
 - First run is the slow one (~5 min, a few hundred bodies to fetch). Later runs
   only see what is new, so they are much shorter.
-- If notifications do not appear, check System Settings → Notifications → Script
-  Editor.
+- Clicking the notification opens the leads file. That needs terminal-notifier,
+  which `install.sh` puts in `~/Applications`; without it the script falls back
+  to a plain notification whose click does nothing useful.
+- If notifications do not appear, check System Settings → Notifications →
+  terminal-notifier (or Script Editor, for the fallback).

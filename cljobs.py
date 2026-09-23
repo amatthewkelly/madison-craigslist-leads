@@ -16,6 +16,7 @@ import html
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import time
@@ -599,14 +600,27 @@ def write_out(path, text):
     os.replace(tmp, path)
 
 
-def notify(title, message):
-    def esc(s):
-        return s.replace("\\", "\\\\").replace('"', '\\"')
-    script = ('display notification "%s" with title "%s" sound name "Glass"'
-              % (esc(message[:220]), esc(title[:80])))
+TERMINAL_NOTIFIER = os.path.expanduser(
+    "~/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier")
+
+
+def notify(title, message, open_path=None):
+    """Post a macOS notification. With terminal-notifier installed, clicking
+    it opens open_path; otherwise fall back to osascript (click does nothing
+    useful)."""
+    if os.path.exists(TERMINAL_NOTIFIER):
+        cmd = [TERMINAL_NOTIFIER, "-title", title[:80], "-message", message[:220],
+               "-sound", "Glass", "-group", "craigslistcash"]
+        if open_path:
+            cmd += ["-execute", "/usr/bin/open %s" % shlex.quote(open_path)]
+    else:
+        def esc(s):
+            return s.replace("\\", "\\\\").replace('"', '\\"')
+        cmd = ["osascript", "-e",
+               'display notification "%s" with title "%s" sound name "Glass"'
+               % (esc(message[:220]), esc(title[:80]))]
     try:
-        subprocess.run(["osascript", "-e", script],
-                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                        timeout=15)
     except Exception as exc:
         log("notification failed: %s" % exc)
@@ -821,7 +835,7 @@ def main():
             top = new_entries[0]["title"]
             msg = ("%d new lead%s - top: %s"
                    % (len(new_entries), "" if len(new_entries) == 1 else "s", top))
-            notify("Craigslist leads (Madison)", msg)
+            notify("Craigslist leads (Madison)", msg, open_path=out_path)
         else:
             log("no new leads; skipping notification")
     return 0
