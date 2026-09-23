@@ -59,6 +59,25 @@ PLISTEOF
 
 chmod +x "$HERE/cljobs.py"
 
+# terminal-notifier lets a click on the notification open the leads file
+# (plain osascript notifications can't set a click action). Homebrew needs full
+# Xcode to build it, so fetch the prebuilt release and ad-hoc sign it.
+TN_APP="$HOME/Applications/terminal-notifier.app"
+TN_URL="https://github.com/julienXX/terminal-notifier/releases/download/2.0.0/terminal-notifier-2.0.0.zip"
+if [ ! -x "$TN_APP/Contents/MacOS/terminal-notifier" ]; then
+    TN_TMP="$(mktemp -d)"
+    if curl -fsSL -o "$TN_TMP/tn.zip" "$TN_URL" && unzip -q "$TN_TMP/tn.zip" -d "$TN_TMP"; then
+        mkdir -p "$HOME/Applications"
+        rm -rf "$TN_APP"
+        cp -R "$TN_TMP/terminal-notifier.app" "$TN_APP"
+        codesign --force --deep -s - "$TN_APP"
+        echo "installed terminal-notifier -> $TN_APP"
+    else
+        echo "warning: could not fetch terminal-notifier; notifications will not open the leads file" >&2
+    fi
+    rm -rf "$TN_TMP"
+fi
+
 # bootout is expected to fail when nothing is loaded yet
 launchctl bootout "gui/$UID/$LABEL" 2>/dev/null || true
 launchctl bootstrap "gui/$UID" "$PLIST"
